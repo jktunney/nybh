@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('/nybh/nyc_behavioral_health_providers_sample.json')
         .then(response => response.json())
         .then(data => {
-            providerData = data;
+            providerData = data.sort((a, b) => a.name.localeCompare(b.name));
+            displayProviders(providerData); // Display all providers initially
         })
         .catch(error => {
             console.error('Error fetching data: ', error);
