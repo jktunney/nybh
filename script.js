@@ -29,3 +29,20 @@ function searchProviders(searchString) {
             (provider.name && provider.name.toLowerCase().includes(searchString)) ||
             (provider.services && provider.services.toLowerCase().includes(searchString))
         );
+    });
+    displayProviders(filteredProviders);
+}
+
+function displayProviders(providers) {
+    const resultsContainer = document.getElementById('results');
+    const htmlString = providers.map(provider => {
+        return `
+            <div class="provider">
+                <h2>${provider.name || 'Unnamed Provider'}</h2>
+                <p>${provider.services || 'No services listed'}</p>
+                <!-- Add more details as needed -->
+            </div>
+        `;
+    }).join('');
+    resultsContainer.innerHTML = htmlString;
+}
