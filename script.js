@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             providerData = data.sort((a, b) => {
-                // Safely handle possibly undefined 'name' properties
-                const nameA = a.name || '';
-                const nameB = b.name || '';
+                // Safely handle possibly undefined 'PROVIDER OR FACILITY NAME' properties
+                const nameA = a['PROVIDER OR FACILITY NAME'] || '';
+                const nameB = b['PROVIDER OR FACILITY NAME'] || '';
                 return nameA.localeCompare(nameB);
             });
             displayProviders(providerData); // Display all providers initially
@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function searchProviders(searchString) {
     const filteredProviders = providerData.filter(provider => {
         return (
-            (provider.name && provider.name.toLowerCase().includes(searchString)) ||
-            (provider.services && provider.services.toLowerCase().includes(searchString))
+            (provider['PROVIDER OR FACILITY NAME'] && provider['PROVIDER OR FACILITY NAME'].toLowerCase().includes(searchString)) ||
+            (provider['PROFESSION OR SERVICE'] && provider['PROFESSION OR SERVICE'].toLowerCase().includes(searchString))
         );
     });
     displayProviders(filteredProviders);
@@ -38,8 +38,8 @@ function displayProviders(providers) {
     const htmlString = providers.map(provider => {
         return `
             <div class="provider">
-                <h2>${provider.name || 'Unnamed Provider'}</h2>
-                <p>${provider.services || 'No services listed'}</p>
+                <h2>${provider['PROVIDER OR FACILITY NAME'] || 'Unnamed Provider'}</h2>
+                <p>${provider['PROFESSION OR SERVICE'] || 'No services listed'}</p>
                 <!-- Add more details as needed -->
             </div>
         `;
